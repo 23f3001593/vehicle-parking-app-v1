@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS ParkingLot(
     pincode TEXT NOT NULL CHECK(length(pincode)=6),
     price NUMERIC NOT NULL,
     max_spots INTEGER NOT NULL,
-    filled_spots INTEGER NOT NULL DEFAULT 0
+    filled_spots INTEGER NOT NULL DEFAULT 0,
     revenue_collected NUMERIC NOT NULL DEFAULT 0.0
 )
 ''')

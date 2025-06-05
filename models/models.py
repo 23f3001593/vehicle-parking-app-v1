@@ -57,14 +57,15 @@ class Reservation(db.Model):
     )
 
 admin_data = ("ramkumar", "RamKumar9", "Ram Kumar", "12 MG Road, Bengaluru", "560001", "admin")
-if not User.query.filter_by(user_name=admin_data[0]).first():
-    new_admin = User(
-        user_name=admin_data[0],
-        password=admin_data[1],
-        full_name=admin_data[2],
-        address=admin_data[3],
-        pincode=admin_data[4],
-        role=admin_data[5]
-    )
-    db.session.add(new_admin)
-    db.session.commit()
+def create_admin(admin_data = admin_data):
+    if not User.query.filter_by(user_name=admin_data[0]).first():
+        new_admin = User(
+            user_name=admin_data[0],
+            password=admin_data[1],
+            full_name=admin_data[2],
+            address=admin_data[3],
+            pincode=admin_data[4],
+            role=admin_data[5]
+        )
+        db.session.add(new_admin)
+        db.session.commit()
