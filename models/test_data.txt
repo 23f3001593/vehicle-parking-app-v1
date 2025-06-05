@@ -1,0 +1,25 @@
+User = [
+    ("ramkumar", "RamKumar9", "Ram Kumar", "12 MG Road, Bengaluru", "560001", "admin"),
+    ("priya_bhat", "Priya@2025", "Priya Bhat", "45 Marine Drive, Mumbai", "400002", "user"),
+    ("amit_singh", "Amit#Singh9", "Amit Singh", "78 Park Street, Kolkata", "700016", "user"),
+    ("sneha_mehra", "SnehaMehra7", "Sneha Mehra", "33 Connaught Place, Delhi", "110001", "user"),
+    ("anil_patel", "AnilPatel3", "Anil Patel", "56 Ellis Bridge, Ahmedabad", "380006", "user"),
+    ("neeraj_jain", "JainNeeraj5", "Neeraj Jain", "22 Sector 17, Chandigarh", "160017", "user"),
+    ("rekha_desai", "RekhaD#89", "Rekha Desai", "19 Law Garden, Surat", "395007", "user"),
+    ("vikram_rana", "VikramRana1", "Vikram Rana", "90 MG Road, Pune", "411001", "user"),
+    ("tanya_mehta", "TanyaM@123", "Tanya Mehta", "11 Sector 15, Noida", "201301", "user"),
+    ("harsh_kumar", "HarshKumar8", "Harsh Kumar", "77 Salt Lake City, Kolkata", "700064", "user"),
+]
+
+ParkingLot = [
+    ("MG Road Parking", "12 MG Road, Bengaluru", "560001", 150.00, 100, 45, 10250.00),
+    ("Marine Drive Parking", "45 Marine Drive, Mumbai", "400002", 200.00, 80, 60, 13500.00),
+    ("Park Street Parking", "78 Park Street, Kolkata", "700016", 120.00, 70, 35, 4700.00),
+    ("Connaught Place Parking", "33 Connaught Place, Delhi", "110001", 250.00, 120, 90, 25500.00),
+    ("Ellis Bridge Parking", "56 Ellis Bridge, Ahmedabad", "380006", 100.00, 50, 20, 2500.00),
+    ("Sector 17 Parking", "22 Sector 17, Chandigarh", "160017", 130.00, 60, 25, 3700.00),
+    ("Law Garden Parking", "19 Law Garden, Surat", "395007", 90.00, 40, 10, 1200.00),
+    ("MG Road Parking Pune", "90 MG Road, Pune", "411001", 110.00, 75, 50, 5800.00),
+    ("Sector 15 Parking", "11 Sector 15, Noida", "201301", 140.00, 65, 30, 4800.00),
+    ("Salt Lake City Parking", "77 Salt Lake City, Kolkata", "700064", 125.00, 85, 55, 7150.00),
+]
