@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Register</title>
+    </head>
+    <body>
+        <h1>Sign Up</h1>
+        <form action="/register" method="POST" id="register-form">
+            <div>
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+            </div>
+            <div>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+            </div>
+            <div>
+                <label for="fullname">Fullname:</label><br>
+                <input type="text" id="fullname" name="fullname" required><br><br>
+            </div>
+            <div>
+                <label for="address">Address:</label><br>
+                <textarea id="address" name="address" rows="5" cols="25" placeholder="Enter your address here..." required></textarea><br><br>
+            </div>
+            <div>
+                <label for="pincode">Pin Code:</label><br>
+                <input type="text" id="pincode" name="pincode" required><br><br>
+            </div>
+            <div>
+                <button type="submit">Register</button><br><br>
+            </div>
+        </form>
+    </body>
+</html>

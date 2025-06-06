@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <form action="/login" method="POST" id="login-form">
+            <div>
+                <label for="input-username">Username:</label><br>
+                <input type="text" id="input-username" name="username" required><br><br>
+            </div>
+            <div>
+                <label for="input-password">Password:</label><br>
+                <input type="password" id="input-password" name="password" required><br><br>
+            </div>
+            <div>
+                <button type="submit">Login</button><br><br>
+            </div>
+        </form>
+        <p><a href="/register">Create Account?</a></p>
+    </body>
+</html>
