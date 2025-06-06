@@ -16,7 +16,11 @@ def login():
         if (not user) or (user.password!=password):
             return render_template("/main/login.html")
         
-        return redirect('/')
+        if (user.role == "admin"):
+            return redirect('/admin/dashboard')
+        else:
+            return redirect('/user/dashboard')
+
     return render_template("/main/login.html")
 
 @app.route("/register", methods=["GET","POST"])

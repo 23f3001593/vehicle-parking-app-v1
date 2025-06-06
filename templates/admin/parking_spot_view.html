@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>View | Parking Spot</title>
+    </head>
+    <body>
+        <h1>View Parking Spot</h1>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <tbody>
+                {% for i in range(0, spots|length, 5) %}
+                    <tr>
+                    {% for spot in spots[i:i+5] %}
+                        <td>
+                            <a href="/admin/parking-spot/details/{{spot.id}}"><button type="submit">ID {{spot.id}}</button></a>
+                        </td>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        <div>
+            <a href="/admin/dashboard"><button type="button">Close</button></a>
+        </div>
+    </body>
+</html>

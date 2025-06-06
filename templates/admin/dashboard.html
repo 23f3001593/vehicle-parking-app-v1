@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Dashboard | Admin</title>
+    </head>
+    <body>
+        <div>
+            <h3>
+                <a href="/admin/dashboard">Home | </a>
+                <a href="/admin/registered-users">Users | </a>
+                <a href="/">Logout</a>
+            </h3>
+        </div>
+        <div>
+            <h1>Parking Lots</h1>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <tbody>
+                    {% for lot in lots %}
+                        <tr>
+                            <td>Parking #{{lot.id}}</td>
+                            <td>{{lot.prime_location_name}}</td>
+                            <td>
+                                <a href="/admin/parking-lot/edit/{{lot.id}}">Edit | </a>
+                                <a href="/admin/parking-lot/delete/{{lot.id}}">Delete</a>
+                            </td>
+                            <td>Occupied: {{lot.filled_spots}}/{{lot.max_spots}}</td>
+                            <td><a href="/admin/parking-spot/view/{{lot.id}}"><button type="submit">View</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div>
+            <a href="/admin/parking-lot/new"><button type="button">+ Add Lot</button></a>
+        </div>
+    </body>
+</html>

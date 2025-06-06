@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timezone
+from decimal import Decimal
 
 db = SQLAlchemy()
 
@@ -27,7 +28,7 @@ class ParkingLot(db.Model):
     price = db.Column(db.Numeric, nullable=False)
     max_spots = db.Column(db.Integer, nullable=False)
     filled_spots = db.Column(db.Integer, nullable=False, default=0)
-    revenue_collected = db.Column(db.Numeric, nullable=False, default=0.0)
+    revenue_collected = db.Column(db.Numeric, nullable=False, default=Decimal('0.0'))
     __table_args__ = (
         db.CheckConstraint("length(pincode)=6", name="pincode_length_check"),
     )

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Edit | Parking Lot</title>
+    </head>
+    <body>
+        <h1>New Parking Lot</h1>
+        <form action="/admin/parking-lot/edit/{{lot.id}}" method="POST" id="edit-parkinglot-form">
+            <div>
+                <label for="prime_location_name">Prime Location Name:</label><br>
+                <input type="text" id="prime_location_name" name="prime_location_name" value="{{lot.prime_location_name}}" required><br><br>
+            </div>
+            <div>
+                <label for="address">Address:</label><br>
+                <textarea id="address" name="address" rows="5" cols="25" required>{{lot.address}}</textarea><br><br>
+            </div>
+            <div>
+                <label for="pincode">Pin Code:</label><br>
+                <input type="text" id="pincode" name="pincode" value="{{lot.pincode}}" required><br><br>
+            </div>
+            <div>
+                <label for="price">Price (per hour):</label><br>
+                <input type="number" id="price" name="price" value="{{lot.price}}" required><br><br>
+            </div>
+            <div>
+                <label for="max_spots">Maximum Spots:</label><br>
+                <input type="number" id="max_spots" name="max_spots" value="{{lot.max_spots}}" required><br><br>
+            </div>
+            <div>
+                <button type="submit">Update</button> &emsp;
+                <a href="/admin/dashboard"><button type="button">Cancel</button></a>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>New | Parking Lot</title>
+    </head>
+    <body>
+        <h1>New Parking Lot</h1>
+        <form action="/admin/parking-lot/new" method="POST" id="new-parkinglot-form">
+            <div>
+                <label for="prime_location_name">Prime Location Name:</label><br>
+                <input type="text" id="prime_location_name" name="prime_location_name" required><br><br>
+            </div>
+            <div>
+                <label for="address">Address:</label><br>
+                <textarea id="address" name="address" rows="5" cols="25" placeholder="Enter address here..." required></textarea><br><br>
+            </div>
+            <div>
+                <label for="pincode">Pin Code:</label><br>
+                <input type="text" id="pincode" name="pincode" required><br><br>
+            </div>
+            <div>
+                <label for="price">Price (per hour):</label><br>
+                <input type="number" id="price" name="price" required><br><br>
+            </div>
+            <div>
+                <label for="max_spots">Maximum Spots:</label><br>
+                <input type="number" id="max_spots" name="max_spots" required><br><br>
+            </div>
+            <div>
+                <button type="submit">Add</button> &emsp;
+                <a href="/admin/dashboard"><button type="button">Cancel</button></a>
+            </div>
+        </form>
+    </body>
+</html>
