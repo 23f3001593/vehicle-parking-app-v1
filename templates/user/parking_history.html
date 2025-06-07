@@ -22,7 +22,7 @@
                         <th>Vehicle Number</th>
                         <th>Parking Time</th>
                         <th>Duration (in mins)</th>
-                        <th>Cost</th>
+                        <th>Cost (in Rs.)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                             <td>{{reservation.vehicle_num}}</td>
                             <td>{{reservation.parking_time}}</td>
                             <td>{{durations[reservation.id]}}</td>
-                            <td>{{reservation.parking_cost}}</td>
+                            <td>{{ '%.2f' % reservation.parking_cost }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

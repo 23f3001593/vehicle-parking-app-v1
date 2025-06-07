@@ -45,7 +45,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Address</th>
-                        <th>Price</th>
+                        <th>Price (in Rs.)</th>
                         <th>Availability</th>
                         <th>Action</th>
                     </tr>
@@ -55,7 +55,7 @@
                         <tr>
                             <td>{{lot.id}}</td>
                             <td>{{lot.address}}</td>
-                            <td>{{lot.price}}</td>
+                            <td>{{ '%.2f' % lot.price }}</td>
                             <td>{{lot_availability[lot.id]}}</td>
                             <td><a href="/user/parking-spot/book/{{user.id}}/{{lot.id}}"><button type="submit">Book</button></a></td>
                         </tr>
