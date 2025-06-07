@@ -8,6 +8,7 @@
         <div>
             <h3>
                 <a href="/user/dashboard/{{user.id}}">Home | </a>
+                <a href="/user/parking-history/{{user.id}}">History | </a>
                 <a href="/">Logout</a>
             </h3>
         </div>
@@ -24,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for reservation in reservations %}
+                    {% for reservation in ongoing_reservations %}
                         <tr>
                             <td>{{reservation.spot_id}}</td>
                             <td>{{reservation.spot.lot.prime_location_name}}</td>

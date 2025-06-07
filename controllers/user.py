@@ -8,9 +8,10 @@ from decimal import Decimal
 def user_dashboard(user_id):
     user = User.query.get(user_id)
     ongoing_reservations = Reservation.query.filter_by(user_id=user_id, leaving_time=None).all()
+
     lots = ParkingLot.query.filter(ParkingLot.filled_spots < ParkingLot.max_spots).all()
     lot_availability = {lot.id: lot.max_spots-lot.filled_spots for lot in lots}
-    return render_template("/user/user_dashboard.html", user=user, reservations=ongoing_reservations, lots=lots, lot_availability=lot_availability)
+    return render_template("/user/user_dashboard.html", user=user, ongoing_reservations=ongoing_reservations, lots=lots, lot_availability=lot_availability)
 
 @app.route("/user/parking-spot/book/<int:user_id>/<int:lot_id>", methods=["GET","POST"])
 def book_parking_spot(user_id, lot_id):
@@ -52,3 +53,13 @@ def release_parking_spot(reservation_id):
 
         return redirect(f"/user/dashboard/{user.id}")
     return render_template("/user/parking_spot_release.html", reservation=reservation, user=user, leaving_time=leaving_time.strftime('%Y-%m-%d %H:%M:%S'))
+
+@app.route("/user/parking-history/<int:user_id>", methods=["GET"])
+def parking_history(user_id):
+    user = User.query.get(user_id)
+    reservations = Reservation.query.filter(Reservation.user_id == user_id, Reservation.leaving_time != None).all()
+    durations = {}
+    for reservation in reservations:
+        duration = Decimal((reservation.leaving_time - reservation.parking_time).total_seconds()) / Decimal(60)
+        durations[reservation.id] = int(duration)
+    return render_template("/user/parking_history.html", user=user, reservations=reservations, durations=durations)

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>History</title>
+    </head>
+    <body>
+        <div>
+            <h3>
+                <a href="/user/dashboard/{{user.id}}">Home | </a>
+                <a href="/user/parking-history/{{user.id}}">History | </a>
+                <a href="/">Logout</a>
+            </h3>
+        </div>
+        <div>
+            <h1>Parking History</h1>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Location</th>
+                        <th>Vehicle Number</th>
+                        <th>Parking Time</th>
+                        <th>Duration (in mins)</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in reservations %}
+                        <tr>
+                            <td>{{reservation.spot_id}}</td>
+                            <td>{{reservation.spot.lot.prime_location_name}}</td>
+                            <td>{{reservation.vehicle_num}}</td>
+                            <td>{{reservation.parking_time}}</td>
+                            <td>{{durations[reservation.id]}}</td>
+                            <td>{{reservation.parking_cost}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

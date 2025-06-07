@@ -76,3 +76,16 @@ def parking_spot_details(spot_id):
 def registered_users():
     users = User.query.filter_by(role='user').all()
     return render_template("/admin/registered_users.html", users=users)
+
+@app.route("/admin/parking-reservations", methods=["GET"])
+def parking_reservations():
+    reservations = Reservation.query.filter(Reservation.leaving_time != None).all()
+    
+    durations = {}
+    usernames = {}
+    for reservation in reservations:
+        duration = Decimal((reservation.leaving_time - reservation.parking_time).total_seconds()) / Decimal(60)
+        durations[reservation.id] = int(duration)
+        usernames[reservation.id] = reservation.user.user_name
+
+    return render_template("/admin/parking_reservations.html", reservations=reservations, durations=durations, usernames=usernames)
