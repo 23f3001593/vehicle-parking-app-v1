@@ -23,3 +23,16 @@ ParkingLot = [
     ("Sector 15 Parking", "11 Sector 15, Noida", "201301", 140.00, 65, 30, 4800.00),
     ("Salt Lake City Parking", "77 Salt Lake City, Kolkata", "700064", 125.00, 85, 55, 7150.00),
 ]
+
+vehicle_num = [
+    ("KA01MG2345"),
+    ("MH01MD8899"),
+    ("WB01PS6789"),
+    ("DL01CP1234"),
+    ("GJ01EB5566"),
+    ("CH01S71717"),
+    ("GJ05LG9988"),
+    ("MH12MG4532"),
+    ("UP16S15123"),
+    ("WB02SL4567")
+]

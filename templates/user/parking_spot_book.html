@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Book</title>
+    </head>
+    <body>
+        <h1>Book Parking Spot</h1>
+        <form action="/user/parking-spot/book/{{user.id}}/{{lot.id}}" method="POST" id="book-parkingspot-form">
+            <div>
+                <label for="user_id">User ID:</label><br>
+                <input type="number" id="user_id" name="user_id" value="{{user.id}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="lot_id">Lot ID:</label><br>
+                <input type="number" id="lot_id" name="lot_id" value="{{lot.id}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="spot_id">Spot ID:</label><br>
+                <input type="number" id="spot_id" name="spot_id" value="{{spot.id}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="vehicle_num">Vehicle Number:</label><br>
+                <input type="text" id="vehicle_num" name="vehicle_num" required><br><br>
+            </div>
+            <div>
+                <button type="submit">Reserve</button> &emsp;
+                <a href="/user/dashboard/{{user.id}}"><button type="button">Cancel</button></a>
+            </div>
+        </form>
+    </body>
+</html>

@@ -4,9 +4,9 @@ from flask import render_template, request, redirect
 from decimal import Decimal
 
 @app.route("/admin/dashboard", methods=["GET"])
-def dashboard():
+def admin_dashboard():
     lots = ParkingLot.query.all()
-    return render_template("/admin/dashboard.html", lots=lots)
+    return render_template("/admin/admin_dashboard.html", lots=lots)
 
 @app.route("/admin/parking-lot/new", methods=["GET","POST"])
 def new_parking_lot():
@@ -24,9 +24,9 @@ def new_parking_lot():
         for _ in range(max_spots):
             new_spot = ParkingSpot(lot_id=new_lot.id)
             db.session.add(new_spot)
-        db.session.commit()
+            db.session.commit()
 
-        return redirect('/admin/dashboard')
+        return redirect("/admin/dashboard")
     return render_template("/admin/parking_lot_new.html")
 
 @app.route("/admin/parking-lot/edit/<int:lot_id>", methods=["GET","POST"])
@@ -46,7 +46,7 @@ def edit_parking_lot(lot_id):
         lot.max_spots = max_spots
         db.session.commit()
 
-        return redirect('/admin/dashboard')
+        return redirect("/admin/dashboard")
     return render_template("/admin/parking_lot_edit.html", lot=lot)
 
 @app.route("/admin/parking-lot/delete/<int:lot_id>", methods=["GET"])
@@ -55,11 +55,11 @@ def delete_parking_lot(lot_id):
     occupied_spot = any(spot.status == 'O' for spot in lot.spots)
 
     if occupied_spot:
-        return redirect('/admin/dashboard')
+        return redirect("/admin/dashboard")
     db.session.delete(lot)
     db.session.commit()
 
-    return redirect('/admin/dashboard')
+    return redirect("/admin/dashboard")
 
 @app.route("/admin/parking-spot/view/<int:lot_id>", methods=["GET"])
 def view_parking_spots(lot_id):
@@ -70,7 +70,7 @@ def view_parking_spots(lot_id):
 @app.route("/admin/parking-spot/details/<int:spot_id>", methods=["GET"])
 def parking_spot_details(spot_id):
     reservation = Reservation.query.filter_by(spot_id=spot_id, leaving_time=None).first()
-    return render_template("/admin/parking_spot_view.html", reservation=reservation)
+    return render_template("/admin/parking_spot_details.html", reservation=reservation)
 
 @app.route("/admin/registered-users", methods=["GET"])
 def registered_users():

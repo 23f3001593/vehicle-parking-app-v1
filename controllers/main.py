@@ -17,9 +17,9 @@ def login():
             return render_template("/main/login.html")
         
         if (user.role == "admin"):
-            return redirect('/admin/dashboard')
+            return redirect("/admin/dashboard")
         else:
-            return redirect('/user/dashboard')
+            return redirect(f"/user/dashboard/{user.id}")
 
     return render_template("/main/login.html")
 
@@ -40,5 +40,5 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect('/')
+        return redirect("/")
     return render_template("/main/register.html")

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Release</title>
+    </head>
+    <body>
+        <h1>Release Parking Spot</h1>
+        <form action="/user/parking-spot/release/{{reservation.id}}" method="POST" id="release-parkingspot-form">
+            <div>
+                <label for="user_id">User ID:</label><br>
+                <input type="number" id="user_id" name="user_id" value="{{reservation.id}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="spot_id">Spot ID:</label><br>
+                <input type="number" id="spot_id" name="spot_id" value="{{reservation.spot_id}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="vehicle_num">Vehicle Number:</label><br>
+                <input type="text" id="vehicle_num" name="vehicle_num" value="{{reservation.vehicle_num}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="parking_time">Parking Time:</label><br>
+                <input type="text" id="parking_time" name="parking_time" value="{{reservation.parking_time}}" disabled><br><br>
+            </div>
+            <div>
+                <label for="leaving_time">Release Time:</label><br>
+                <input type="text" id="leaving_time" name="leaving_time" value="{{leaving_time}}" disabled><br><br>
+            </div>
+            <div>
+                <button type="submit">Release</button> &emsp;
+                <a href="/user/dashboard/{{user.id}}"><button type="button">Cancel</button></a>
+            </div>
+        </form>
+    </body>
+</html>

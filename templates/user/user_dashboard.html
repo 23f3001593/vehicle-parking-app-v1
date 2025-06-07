@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Dashboard</title>
+    </head>
+    <body>
+        <div>
+            <h3>
+                <a href="/user/dashboard/{{user.id}}">Home | </a>
+                <a href="/">Logout</a>
+            </h3>
+        </div>
+        <div>
+            <h1>Reserved Parking Spots</h1>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Location</th>
+                        <th>Vehicle Number</th>
+                        <th>Parking Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in reservations %}
+                        <tr>
+                            <td>{{reservation.spot_id}}</td>
+                            <td>{{reservation.spot.lot.prime_location_name}}</td>
+                            <td>{{reservation.vehicle_num}}</td>
+                            <td>{{reservation.parking_time}}</td>
+                            <td><a href="/user/parking-spot/release/{{reservation.id}}"><button type="submit">Release</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <br><br>
+        <div>
+            <h1>Available Parking Lots</h1>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Address</th>
+                        <th>Price</th>
+                        <th>Availability</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lot in lots %}
+                        <tr>
+                            <td>{{lot.id}}</td>
+                            <td>{{lot.address}}</td>
+                            <td>{{lot.price}}</td>
+                            <td>{{lot_availability[lot.id]}}</td>
+                            <td><a href="/user/parking-spot/book/{{user.id}}/{{lot.id}}"><button type="submit">Book</button></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
