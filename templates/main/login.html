@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Login</title>
-    </head>
-    <body>
-        <h1>Login</h1>
-        <form action="/login" method="POST" id="login-form">
-            <div>
-                <label for="input-username">Username:</label><br>
-                <input type="text" id="input-username" name="username" required><br><br>
+{% extends "main/main_base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+    <div class="w-100 login-card" style="max-width: 400px;">
+        <h1 class="text-center mb-4 text-primary fw-bold">Login</h1>
+        <form action="/login" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required autocomplete="username"/>
             </div>
-            <div>
-                <label for="input-password">Password:</label><br>
-                <input type="password" id="input-password" name="password" required><br><br>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password"/>
             </div>
-            <div>
-                <button type="submit">Login</button><br><br>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
-        <p><a href="/register">Create Account?</a></p>
-    </body>
-</html>
+        <p class="text-center mt-3">
+            Don't have an account? <a href="/register" class="text-decoration-none text-primary fw-medium">Create</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

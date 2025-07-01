@@ -1,6 +1,7 @@
 from app import app
 from models.models import db, User, ParkingLot, ParkingSpot, Reservation
 from flask import render_template, request, redirect
+from datetime import timezone, timedelta
 from decimal import Decimal
 
 @app.route("/admin/dashboard", methods=["GET"])
@@ -65,12 +66,15 @@ def delete_parking_lot(lot_id):
 def view_parking_spots(lot_id):
     lot = ParkingLot.query.get(lot_id)
     spots = [spot for spot in lot.spots if spot.status == 'O']
-    return render_template("/admin/parking_spot_view.html", spots=spots)
+    reservations = {}
 
-@app.route("/admin/parking-spot/details/<int:spot_id>", methods=["GET"])
-def parking_spot_details(spot_id):
-    reservation = Reservation.query.filter_by(spot_id=spot_id, leaving_time=None).first()
-    return render_template("/admin/parking_spot_details.html", reservation=reservation)
+    IST = timezone(timedelta(hours=5, minutes=30))
+    for spot in spots:
+        active_reservation = Reservation.query.filter_by(spot_id=spot.id, leaving_time=None).first()
+        parking_time_ist = active_reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST)
+        active_reservation.parking_time = parking_time_ist
+        reservations[spot.id] = active_reservation
+    return render_template("/admin/parking_spot_view.html", lot=lot, spots=spots, reservations=reservations)
 
 @app.route("/admin/registered-users", methods=["GET"])
 def registered_users():
@@ -81,11 +85,48 @@ def registered_users():
 def parking_reservations():
     reservations = Reservation.query.filter(Reservation.leaving_time != None).all()
     
-    durations = {}
     usernames = {}
+    durations = {}
+    
+    IST = timezone(timedelta(hours=5, minutes=30))
+    def format_duration(minutes):
+        if minutes < 1:
+            return "Less than a minute"
+        hours = minutes // 60
+        mins = minutes % 60
+        if hours > 0:
+            if mins > 0:
+                return f"{hours}h {mins}m"
+            else:
+                return f"{hours}h"
+        else:
+            return f"{mins}m"
+        
     for reservation in reservations:
-        duration = Decimal((reservation.leaving_time - reservation.parking_time).total_seconds()) / Decimal(60)
-        durations[reservation.id] = int(duration)
+        parking_time_ist = reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST)
+        leaving_time_ist = reservation.leaving_time.replace(tzinfo=timezone.utc).astimezone(IST)
+        reservation.parking_time = parking_time_ist
+        duration_minutes = Decimal((leaving_time_ist - parking_time_ist).total_seconds()) / Decimal(60)
+        durations[reservation.id] = format_duration(int(duration_minutes))
         usernames[reservation.id] = reservation.user.user_name
-
     return render_template("/admin/parking_reservations.html", reservations=reservations, durations=durations, usernames=usernames)
+
+@app.route("/admin/edit", methods=["GET","POST"])
+def admin_profile_edit():
+    admin = User.query.filter_by(role="admin").first()
+    if request.method=="POST":
+        user_name = request.form['user_name']
+        password = request.form['password']
+        full_name = request.form['full_name']
+        address = request.form['address']
+        pincode = request.form['pincode']
+        
+        admin.user_name = user_name
+        admin.password = password
+        admin.full_name = full_name
+        admin.address = address
+        admin.pincode = pincode
+        db.session.commit()
+
+        return redirect(f"/admin/dashboard")
+    return render_template("/admin/admin_profile_edit.html", admin=admin)

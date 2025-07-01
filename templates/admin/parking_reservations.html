@@ -1,48 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Parking Reservations</title>
-    </head>
-    <body>
-        <div>
-            <h3>
-                <a href="/admin/dashboard">Home | </a>
-                <a href="/admin/registered-users">Users | </a>
-                <a href="/admin/parking-reservations">Reservations | </a>
-                <a href="/">Logout</a>
-            </h3>
-        </div>
-        <div>
-            <h1>Parking Reservations</h1>
-            <table border="1" cellpadding="5" cellspacing="0">
-                <thead>
+{% extends "admin/admin_base.html" %}
+{% block title %}Parking Reservations{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Parking Reservations</h1>
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0 text-center">
+                <thead class="table-primary align-middle">
                     <tr>
-                        <th>ID</th>
-                        <th>Spot ID</th>
-                        <th>Username</th>
-                        <th>Location</th>
-                        <th>Vehicle Number</th>
-                        <th>Parking Time</th>
-                        <th>Duration (in mins)</th>
-                        <th>Cost (in Rs.)</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Spot ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Vehicle Number</th>
+                        <th scope="col">Parking Time</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Cost</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for reservation in reservations %}
                         <tr>
-                            <td>{{reservation.id}}</td>
-                            <td>{{reservation.spot_id}}</td>
-                            <td>{{usernames[reservation.id]}}</td>
-                            <td>{{reservation.spot.lot.prime_location_name}}</td>
-                            <td>{{reservation.vehicle_num}}</td>
-                            <td>{{reservation.parking_time}}</td>
-                            <td>{{durations[reservation.id]}}</td>
-                            <td>{{ '%.2f' % reservation.parking_cost }}</td>
+                            <td>{{ reservation.id }}</td>
+                            <td>{{ reservation.spot_id }}</td>
+                            <td>{{ usernames[reservation.id] }}</td>
+                            <td>{{ reservation.spot.lot.prime_location_name }}</td>
+                            <td>{{ reservation.vehicle_num }}</td>
+                            <td>{{ reservation.parking_time.strftime('%Y-%m-%d | %I:%M %p') }}</td>
+                            <td>{{ durations[reservation.id] }}</td>
+                            <td>&#8377;{{ '%.2f' % reservation.parking_cost }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8" class="text-muted fst-italic">No parking reservations found.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+{% endblock %}

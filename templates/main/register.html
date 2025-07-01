@@ -1,35 +1,37 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Register</title>
-    </head>
-    <body>
-        <h1>Sign Up</h1>
+{% extends "main/main_base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="container d-flex justify-content-center my-5">
+    <div class="w-100 register-card" style="max-width: 500px;">
+        <h1 class="text-center mb-4 text-primary fw-bold">Sign Up</h1>
         <form action="/register" method="POST" id="register-form">
-            <div>
-                <label for="username">Username:</label><br>
-                <input type="text" id="username" name="username" required><br><br>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required />
             </div>
-            <div>
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" required><br><br>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required />
             </div>
-            <div>
-                <label for="fullname">Fullname:</label><br>
-                <input type="text" id="fullname" name="fullname" required><br><br>
+            <div class="mb-3">
+                <label for="fullname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" required />
             </div>
-            <div>
-                <label for="address">Address:</label><br>
-                <textarea id="address" name="address" rows="5" cols="25" placeholder="Enter your address here..." required></textarea><br><br>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="4" placeholder="Enter your address here..." required></textarea>
             </div>
-            <div>
-                <label for="pincode">Pin Code:</label><br>
-                <input type="text" id="pincode" name="pincode" required><br><br>
+            <div class="mb-4">
+                <label for="pincode" class="form-label">Pin Code</label>
+                <input type="text" class="form-control" id="pincode" name="pincode" required />
             </div>
-            <div>
-                <button type="submit">Register</button><br><br>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Register</button>
             </div>
         </form>
-    </body>
-</html>
+        <p class="text-center mt-3">
+            Already have an account? <a href="/login" class="text-decoration-none text-primary fw-medium">Login</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,40 +1,49 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Dashboard | Admin</title>
-    </head>
-    <body>
-        <div>
-            <h3>
-                <a href="/admin/dashboard">Home | </a>
-                <a href="/admin/registered-users">Users | </a>
-                <a href="/admin/parking-reservations">Reservations | </a>
-                <a href="/">Logout</a>
-            </h3>
-        </div>
-        <div>
-            <h1>Parking Lots</h1>
-            <table border="1" cellpadding="5" cellspacing="0">
-                <tbody>
-                    {% for lot in lots %}
-                        <tr>
-                            <td>Parking #{{lot.id}}</td>
-                            <td>{{lot.prime_location_name}}</td>
-                            <td>
-                                <a href="/admin/parking-lot/edit/{{lot.id}}">Edit | </a>
-                                <a href="/admin/parking-lot/delete/{{lot.id}}">Delete</a>
-                            </td>
-                            <td>Occupied: {{lot.filled_spots}}/{{lot.max_spots}}</td>
-                            <td><a href="/admin/parking-spot/view/{{lot.id}}"><button type="submit">View</button></a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <br><br>
-        <div>
-            <a href="/admin/parking-lot/new"><button type="button">+ Add Lot</button></a>
-        </div>
-    </body>
-</html>
+{% extends "admin/admin_base.html" %}
+{% block title %}Dashboard | Admin{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Parking Lots</h2>
+        <a href="/admin/parking-lot/new" class="btn btn-success">+ Add Lot</a>
+    </div>
+    <div class="row">
+        {% for lot in lots %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">{{ lot.prime_location_name }}</h5>
+                        <div class="btn-group btn-group-sm">
+                            <a href="/admin/parking-lot/edit/{{ lot.id }}" class="btn btn-outline-light" title="Edit">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="/admin/parking-lot/delete/{{ lot.id }}" class="btn btn-outline-light" title="Delete">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-2"><strong>Lot ID:</strong> #{{ lot.id }}</p>
+                        <p class="mb-2"><strong>Occupied:</strong> {{ lot.filled_spots }}/{{ lot.max_spots }}</p>
+                        <p class="mb-3"><strong>Revenue Collected:</strong> &#8377;{{ '%.2f' % lot.revenue_collected }}</p>
+                        {% if lot.filled_spots == 0 %}
+                            <a href="#" class="btn btn-primary btn-sm w-100 disabled" aria-disabled="true">
+                                <i class="bi bi-eye me-1"></i> View Spots
+                            </a>
+                        {% else %}
+                            <a href="/admin/parking-spot/view/{{ lot.id }}" class="btn btn-primary btn-sm w-100">
+                                <i class="bi bi-eye me-1"></i> View Spots
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info text-center" role="alert">
+                    No parking lots available.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
