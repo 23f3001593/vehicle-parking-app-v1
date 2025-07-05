@@ -62,5 +62,9 @@
                 &copy; 2025 ParkZone. All rights reserved.
             </div>
         </footer>
+        {% if message %}
+            <div id="error-message" data-message="{{ message | e }}"></div>
+        {% endif %}
+        <script src="{{ url_for('static', filename='error-handler.js') }}"></script>
     </body>
 </html>
