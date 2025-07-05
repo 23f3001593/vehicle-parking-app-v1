@@ -1,5 +1,6 @@
 from flask_restful import Resource, fields, reqparse, marshal_with
-from flask import jsonify
+from flask import jsonify, request
+from sqlalchemy import or_
 from models.models import db, User, ParkingLot, ParkingSpot, Reservation
 from .exceptions import ValidationError, NotFoundError, MissingFieldsError
 from datetime import datetime, timezone, timedelta
@@ -146,7 +147,13 @@ class UserReservationHistoryAPI(Resource):
 class AdminReservationViewAPI(Resource):
     @marshal_with(admin_reservation_view_fields)
     def get(self):
-        reservations = Reservation.query.filter(Reservation.leaving_time != None).all()
+        search = request.args.get("search", "").lower().strip()
+        query = Reservation.query.filter(Reservation.leaving_time != None)
+        if search:
+            keyword = f"%{search}%"
+            query = query.join(ParkingSpot,Reservation.spot).join(User,Reservation.user).join(ParkingLot,ParkingSpot.lot).filter(
+                or_(ParkingSpot.id.cast(db.String).ilike(keyword), User.user_name.ilike(keyword), ParkingLot.prime_location_name.ilike(keyword), Reservation.vehicle_num.ilike(keyword)))
+        reservations = query.all()
         for reservation in reservations:
             reservation.parking_time = reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST)
             reservation.leaving_time = reservation.leaving_time.replace(tzinfo=timezone.utc).astimezone(IST)

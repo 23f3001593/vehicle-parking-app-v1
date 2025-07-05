@@ -1,5 +1,6 @@
 from flask_restful import Resource, fields, reqparse, marshal_with
-from flask import jsonify
+from flask import jsonify, request
+from sqlalchemy import or_
 from models.models import db, User, ParkingLot, Reservation
 from resources.exceptions import ValidationError, NotFoundError, AlreadyExistError, MissingFieldsError
 from datetime import timezone, timedelta
@@ -132,5 +133,10 @@ class AdminDashboardAPI(Resource):
 class RegisteredUsersAPI(Resource):
     @marshal_with(registered_user_fields)
     def get(self):
-        users = User.query.filter_by(role='user').all()
+        search = request.args.get("search", "").lower().strip()
+        query = User.query.filter_by(role='user')
+        if search:
+            keyword = f"%{search}%"
+            query = query.filter(or_(User.user_name.ilike(keyword), User.full_name.ilike(keyword), User.address.ilike(keyword), User.pincode.ilike(keyword)))
+        users = query.all()
         return users

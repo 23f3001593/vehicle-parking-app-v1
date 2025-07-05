@@ -73,8 +73,10 @@ def occupied_parking_spots(lot_id):
 
 @app.route("/admin/registered-users", methods=["GET"])
 def registered_users():
+    search_query = request.args.get("search", "").strip()
     try:
-        res = requests.get(f"{API_BASE}/admin/registered-users")
+        params = {"search": search_query} if search_query else {}
+        res = requests.get(f"{API_BASE}/admin/registered-users", params=params)
         data = res.json()
     except (requests.exceptions.RequestException, ValueError):
         return "Something went wrong. Try again later.", 500
@@ -82,8 +84,10 @@ def registered_users():
 
 @app.route("/admin/parking-reservations", methods=["GET"])
 def parking_reservations():
+    search_query = request.args.get("search", "").strip()
     try:
-        res = requests.get(f"{API_BASE}/admin/reservations")
+        params = {"search": search_query} if search_query else {}
+        res = requests.get(f"{API_BASE}/admin/reservations", params=params)
         data = res.json()
     except (requests.exceptions.RequestException, ValueError):
         return "Something went wrong. Try again later.", 500
