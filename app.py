@@ -11,6 +11,9 @@ with app.app_context():
     db.create_all()
     create_admin()
 
+from resources.api import create_api
+create_api(app)
+
 from controllers.main import *
 from controllers.admin import *
 from controllers.user import *

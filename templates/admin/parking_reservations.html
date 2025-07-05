@@ -19,16 +19,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for reservation in reservations %}
+                    {% for reservation in data %}
                         <tr>
                             <td>{{ reservation.id }}</td>
                             <td>{{ reservation.spot_id }}</td>
-                            <td>{{ usernames[reservation.id] }}</td>
-                            <td>{{ reservation.spot.lot.prime_location_name }}</td>
+                            <td>{{ reservation.username }}</td>
+                            <td>{{ reservation.prime_location_name }}</td>
                             <td>{{ reservation.vehicle_num }}</td>
-                            <td>{{ reservation.parking_time.strftime('%Y-%m-%d | %I:%M %p') }}</td>
-                            <td>{{ durations[reservation.id] }}</td>
-                            <td>&#8377;{{ '%.2f' % reservation.parking_cost }}</td>
+                            <td>{{ reservation.formatted_parking_time }}</td>
+                            <td>{{ reservation.duration }}</td>
+                            <td>&#8377;{{ '%.2f' % reservation.parking_cost | float }}</td>
                         </tr>
                     {% else %}
                         <tr>

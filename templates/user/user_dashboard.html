@@ -18,12 +18,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for reservation in ongoing_reservations %}
+                    {% for reservation in data.ongoing_reservations %}
                         <tr>
-                            <td>{{ reservation.spot.lot.id }}</td>
-                            <td>{{ reservation.spot.lot.prime_location_name }}</td>
+                            <td>{{ reservation.lot_id }}</td>
+                            <td>{{ reservation.prime_location_name }}</td>
                             <td>{{ reservation.vehicle_num }}</td>
-                            <td>{{ reservation.parking_time.strftime('%Y-%m-%d | %I:%M %p') }}</td>
+                            <td>{{ reservation.formatted_parking_time }}</td>
                             <td>
                                 <a href="/user/parking-spot/release/{{ reservation.id }}" class="btn btn-danger btn-sm">Release</a>
                             </td>
@@ -54,15 +54,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for lot in lots %}
+                    {% for lot in data.lots %}
                         <tr>
                             <td>{{ lot.id }}</td>
                             <td>{{ lot.prime_location_name }}</td>
                             <td>{{ lot.address }}</td>
-                            <td>&#8377;{{ '%.2f' % lot.price }}</td>
+                            <td>&#8377;{{ '%.2f' % lot.price | float }}</td>
                             <td>{{ lot_availability[lot.id] }}</td>
                             <td>
-                                <a href="/user/parking-spot/book/{{ user.id }}/{{ lot.id }}" class="btn btn-success btn-sm">Book</a>
+                                <a href="/user/parking-spot/book/{{ data.user_id }}/{{ lot.id }}" class="btn btn-success btn-sm">Book</a>
                             </td>
                         </tr>
                     {% else %}

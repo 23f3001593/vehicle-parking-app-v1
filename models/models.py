@@ -22,7 +22,7 @@ class User(db.Model):
 class ParkingLot(db.Model):
     __tablename__ = "ParkingLot"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    prime_location_name = db.Column(db.Text, nullable=False)
+    prime_location_name = db.Column(db.Text, unique=True, nullable=False)
     address = db.Column(db.Text, nullable=False)
     pincode = db.Column(db.Text, nullable=False)
     price = db.Column(db.Numeric, nullable=False)

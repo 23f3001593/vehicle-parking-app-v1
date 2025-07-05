@@ -11,20 +11,20 @@
     <body>
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="/user/dashboard/{{ user.id }}">
+                <a class="navbar-brand" href="/user/dashboard/{{ data.user_id }}">
                     <img src="{{ url_for('static', filename='logo.png') }}" alt="ParkZone" class="header-logo" />
                 </a>
                 <div class="ms-auto d-flex align-items-center">
-                    <a href="/user/dashboard/{{ user.id }}" class="btn me-2 {% if request.path.startswith('/user/dashboard') %}btn-primary{% else %}btn-outline-light{% endif %}">Home</a>
-                    <a href="/user/parking-history/{{ user.id }}" class="btn me-2 {% if request.path.startswith('/user/parking-history') %}btn-primary{% else %}btn-outline-light{% endif %}">History</a>
+                    <a href="/user/dashboard/{{ data.user_id }}" class="btn me-2 {% if request.path.startswith('/user/dashboard') %}btn-primary{% else %}btn-outline-light{% endif %}">Home</a>
+                    <a href="/user/parking-history/{{ data.user_id }}" class="btn me-2 {% if request.path.startswith('/user/parking-history') %}btn-primary{% else %}btn-outline-light{% endif %}">History</a>
                     <div class="dropdown ms-3">
                         <a class="text-white d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Profile">
                             <i class="bi bi-person-circle fs-4"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="/user/edit/{{ user.id }}">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="/user/edit/{{ data.user_id }}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="/">Logout</a></li>
-                            <li><a class="dropdown-item text-danger" href="/user/delete/{{ user.id }}">Delete Account</a></li>
+                            <li><a class="dropdown-item text-danger" href="/user/delete/{{ data.user_id }}">Delete Account</a></li>
                         </ul>
                     </div>
                 </div>

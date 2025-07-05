@@ -7,33 +7,37 @@
             <h5 class="mb-0">Confirm Release Details</h5>
         </div>
         <div class="card-body">
-            <form action="/user/parking-spot/release/{{ reservation.id }}" method="POST">
+            <form action="/user/parking-spot/release/{{ data.id }}" method="POST">
                 <div class="mb-3">
-                    <label for="user_id" class="form-label">Reservation ID</label>
-                    <input type="number" id="user_id" class="form-control" value="{{ reservation.id }}" disabled>
+                    <label for="user_id" class="form-label">User ID</label>
+                    <input type="number" id="user_id" class="form-control" value="{{ data.user_id }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="spot_id" class="form-label">Lot ID</label>
+                    <input type="number" id="spot_id" class="form-control" value="{{ data.lot_id }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="spot_id" class="form-label">Spot ID</label>
-                    <input type="number" id="spot_id" class="form-control" value="{{ reservation.spot_id }}" disabled>
-                </div>
-                <div class="mb-3">
-                    <label for="prime_location_name" class="form-label">Location</label>
-                    <input type="text" id="prime_location_name" class="form-control" value="{{ reservation.spot.lot.prime_location_name }}" disabled>
+                    <input type="number" id="spot_id" class="form-control" value="{{ data.spot_id }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="vehicle_num" class="form-label">Vehicle Number</label>
-                    <input type="text" id="vehicle_num" class="form-control" value="{{ reservation.vehicle_num }}" disabled>
+                    <input type="text" id="vehicle_num" class="form-control" value="{{ data.vehicle_num }}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="prime_location_name" class="form-label">Location</label>
+                    <input type="text" id="prime_location_name" class="form-control" value="{{ data.prime_location_name }}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="parking_time" class="form-label">Parking Time</label>
-                    <input type="text" id="parking_time" class="form-control" value="{{ parking_time.strftime('%Y-%m-%d | %I:%M %p') }}" disabled>
+                    <input type="text" id="parking_time" class="form-control" value="{{ data.formatted_parking_time }}" disabled>
                 </div>
                 <div class="mb-4">
-                    <label for="leaving_time" class="form-label">Release Time</label>
-                    <input type="text" id="leaving_time" class="form-control" value="{{ leaving_time.strftime('%Y-%m-%d | %I:%M %p') }}" disabled>
+                    <label for="leaving_time" class="form-label">Releasing Time</label>
+                    <input type="text" id="leaving_time" class="form-control" value="{{ data.formatted_leaving_time }}" disabled>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <a href="/user/dashboard/{{ user.id }}" class="btn btn-outline-secondary w-50 me-2">Cancel</a>
+                    <a href="/user/dashboard/{{ data.user_id }}" class="btn btn-outline-secondary w-50 me-2">Cancel</a>
                     <button type="submit" class="btn btn-primary w-50">Release</button>
                 </div>
             </form>

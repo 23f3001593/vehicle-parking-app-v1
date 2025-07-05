@@ -3,20 +3,21 @@
 {% block content %}
 <div class="container my-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="mb-0">{{ lot.prime_location_name }} - Occupied Spots</h2>
+        <h2 class="mb-0">{{ data.prime_location_name }} - Occupied Spots</h2>
         <a href="/admin/dashboard" class="btn btn-outline-primary btn-sm">← Back to Dashboard</a>
     </div>
     <div class="row">
-        {% for spot in spots %}
+        {% for spot in data.spots %}
             <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card h-100">
                     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">Spot #{{ spot.id }}</h5>
                     </div>
                     <div class="card-body">
-                        <p class="mb-2"><strong>User ID:</strong> {{ reservations[spot.id].user_id }}</p>
-                        <p class="mb-2"><strong>Vehicle Number:</strong> {{ reservations[spot.id].vehicle_num }}</p>
-                        <p class="mb-3"><strong>Parking Time:</strong> {{ reservations[spot.id].parking_time.strftime('%Y-%m-%d | %I:%M %p') }}</p>
+                        <p class="mb-2"><strong>User ID:</strong> {{ spot.user_id }}</p>
+                        <p class="mb-2"><strong>Username:</strong> {{ spot.user_name }}</p>
+                        <p class="mb-2"><strong>Vehicle Number:</strong> {{ spot.vehicle_num }}</p>
+                        <p class="mb-3"><strong>Parking Time:</strong> {{ spot.formatted_parking_time }}</p>
                     </div>
                 </div>
             </div>
