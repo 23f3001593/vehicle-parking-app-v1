@@ -1,5 +1,5 @@
 from flask_restful import Resource, fields, reqparse, marshal_with
-from flask import jsonify, request
+from flask import request
 from sqlalchemy import or_
 from models.models import db, User, ParkingLot, Reservation
 from resources.exceptions import ValidationError, NotFoundError, AlreadyExistError, MissingFieldsError
@@ -91,7 +91,7 @@ class UserAPI(Resource):
         user.address = args["address"]
         user.pincode = args["pincode"]
         db.session.commit()
-        return jsonify({"message": "Profile updated."})
+        return {"message": "Profile updated."}
 
     def delete(self, user_id):
         user = User.query.get(user_id)
@@ -104,7 +104,7 @@ class UserAPI(Resource):
             raise ValidationError("Cannot delete account due to ongoing reservation.")
         db.session.delete(user)
         db.session.commit()
-        return jsonify({"message": "User deleted."})
+        return {"message": "User deleted."}
 
 class UserDashboardAPI(Resource):
     @marshal_with(user_dashboard_fields)

@@ -1,5 +1,7 @@
 from app import app
 from flask import render_template, request, redirect
+from flask_login import login_user, logout_user, login_required
+from models.models import User
 import requests
 
 API_BASE = "http://127.0.0.1:5000/api"
@@ -19,6 +21,10 @@ def login():
                 return render_template("/main/login.html", message=data["message"])
         except (requests.exceptions.RequestException, ValueError):
             return "Something went wrong. Try again later.", 500
+        user = User.query.get(data["id"])
+        if not user:
+            return render_template("/main/login.html", message="User not found.")
+        login_user(user)
         if (data["role"] == "admin"):
             return redirect("/admin/dashboard")
         else:
@@ -36,5 +42,15 @@ def register():
                 return render_template("/main/register.html", message=data["message"])
         except (requests.exceptions.RequestException, ValueError):
             return "Something went wrong. Try again later.", 500
+        user = User.query.get(data["id"])
+        if not user:
+            return render_template("/main/login.html", message="User not found.")
+        login_user(user)
         return redirect(f"/user/dashboard/{data["id"]}")
     return render_template("/main/register.html")
+
+@app.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")

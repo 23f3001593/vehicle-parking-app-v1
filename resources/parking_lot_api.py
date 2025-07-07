@@ -1,5 +1,4 @@
 from flask_restful import Resource, fields, reqparse, marshal_with, marshal
-from flask import jsonify
 from models.models import db, ParkingLot, ParkingSpot, Reservation
 from .exceptions import ValidationError, NotFoundError, AlreadyExistError, MissingFieldsError
 from datetime import timezone, timedelta
@@ -66,7 +65,7 @@ class ParkingLotAPI(Resource):
         for _ in range(max_spots):
             db.session.add(ParkingSpot(lot_id=lot.id))
         db.session.commit()
-        return jsonify({"message": "Parking lot and its spots created."}), 201
+        return {"message": "Parking lot and its spots created."}, 201
 
     def put(self, lot_id):
         lot = ParkingLot.query.get(lot_id)
@@ -93,13 +92,20 @@ class ParkingLotAPI(Resource):
             raise ValidationError("Maximum Spots must be a valid integer.")
         if max_spots <= 0:
                 raise ValidationError("Maximum Spots must be a positive integer.")
+        if max_spots < lot.filled_spots:
+            raise ValidationError("Maximum Spots should be greater than or equal to occupied spots.")
+        existing_max_spots = lot.max_spots
         lot.prime_location_name = args["prime_location_name"]
         lot.address = args["address"]
         lot.pincode = args["pincode"]
         lot.price = price
         lot.max_spots = max_spots
         db.session.commit()
-        return jsonify({"message": "Parking lot updated."})
+        if existing_max_spots < int(args['max_spots']):
+            for _ in range(int(args['max_spots']) - existing_max_spots):
+                db.session.add(ParkingSpot(lot_id=lot.id))
+            db.session.commit()
+        return {"message": "Parking lot updated."}
 
     def delete(self, lot_id):
         lot = ParkingLot.query.get(lot_id)
@@ -109,7 +115,7 @@ class ParkingLotAPI(Resource):
             raise ValidationError("Parking lot has active reservations.")
         db.session.delete(lot)
         db.session.commit()
-        return jsonify({"message": "Parking lot deleted."})
+        return {"message": "Parking lot deleted."}
 
 class OccupiedParkingSpotsAPI(Resource):
     def get(self, lot_id):
@@ -123,4 +129,4 @@ class OccupiedParkingSpotsAPI(Resource):
             spot.user_name = active_reservation.user.user_name
             spot.vehicle_num = active_reservation.vehicle_num
             spot.formatted_parking_time = active_reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
-        return jsonify({"prime_location_name": spot.lot.prime_location_name, "spots": marshal(spots, spot_fields)})
+        return {"prime_location_name": spot.lot.prime_location_name, "spots": marshal(spots, spot_fields)}

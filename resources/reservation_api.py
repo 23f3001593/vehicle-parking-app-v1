@@ -1,5 +1,5 @@
 from flask_restful import Resource, fields, reqparse, marshal_with
-from flask import jsonify, request
+from flask import request
 from sqlalchemy import or_
 from models.models import db, User, ParkingLot, ParkingSpot, Reservation
 from .exceptions import ValidationError, NotFoundError, MissingFieldsError
@@ -82,12 +82,18 @@ class ReservationBookAPI(Resource):
         spot = ParkingSpot.query.filter_by(lot_id=lot_id, status='A').first()
         if not spot:
             raise NotFoundError("No available spot in this lot.")
+        if lot.filled_spots >= lot.max_spots:
+            raise NotFoundError("No available spot in this lot.")
+        existing_reservations = Reservation.query.filter_by(leaving_time=None).all()
+        for reservation in existing_reservations:
+            if reservation.vehicle_num == args['vehicle_num']:
+                raise ValidationError("This vehicle already has an active reservation.")
         reservation = Reservation(spot_id=spot.id, user_id=user_id, vehicle_num=args["vehicle_num"])
         spot.status = 'O'
         lot.filled_spots += 1
         db.session.add(reservation)
         db.session.commit()
-        return jsonify({"message": "Reservation created."}), 201
+        return {"message": "Reservation created."}, 201
 
 class ReservationReleaseAPI(Resource):
     @marshal_with(reservation_release_fields)
@@ -117,7 +123,7 @@ class ReservationReleaseAPI(Resource):
         reservation.spot.lot.filled_spots -= 1
         reservation.spot.lot.revenue_collected += cost
         db.session.commit()
-        return jsonify({'user_id': reservation.user.id})
+        return {'user_id': reservation.user.id}
 
 class UserReservationHistoryAPI(Resource):
     @marshal_with(user_reservation_history_fields)
@@ -125,7 +131,13 @@ class UserReservationHistoryAPI(Resource):
         user = User.query.get(user_id)
         if not user:
             raise NotFoundError("User not found.")
-        reservations = Reservation.query.filter(Reservation.user_id == user_id, Reservation.leaving_time != None).all()
+        search = request.args.get("search", "").lower().strip()
+        query = Reservation.query.filter(Reservation.user_id == user_id, Reservation.leaving_time != None)
+        if search:
+            keyword = f"%{search}%"
+            query = query.join(ParkingSpot,Reservation.spot).join(ParkingLot,ParkingSpot.lot).filter(
+                or_(ParkingLot.prime_location_name.ilike(keyword), Reservation.vehicle_num.ilike(keyword)))
+        reservations = query.all()
         for reservation in reservations:
             reservation.parking_time = reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST)
             reservation.leaving_time = reservation.leaving_time.replace(tzinfo=timezone.utc).astimezone(IST)
@@ -140,8 +152,8 @@ class UserReservationHistoryAPI(Resource):
             reservation.user_id = reservation.user.id
             reservation.lot_id = reservation.spot.lot.id
             reservation.prime_location_name = reservation.spot.lot.prime_location_name
-            reservation.formatted_parking_time = reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
-            reservation.formatted_leaving_time = reservation.leaving_time.replace(tzinfo=timezone.utc).astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
+            reservation.formatted_parking_time = reservation.parking_time.astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
+            reservation.formatted_leaving_time = reservation.leaving_time.astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
         return reservations
 
 class AdminReservationViewAPI(Resource):
@@ -168,5 +180,5 @@ class AdminReservationViewAPI(Resource):
             reservation.spot_id = reservation.spot.id
             reservation.username = reservation.user.user_name
             reservation.prime_location_name = reservation.spot.lot.prime_location_name
-            reservation.formatted_parking_time = reservation.parking_time.replace(tzinfo=timezone.utc).astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
+            reservation.formatted_parking_time = reservation.parking_time.astimezone(IST).strftime('%Y-%m-%d | %I:%M %p')
         return reservations
