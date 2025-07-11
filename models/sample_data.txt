@@ -1,38 +1,71 @@
-User = [
-    ("ramkumar", "RamKumar9", "Ram Kumar", "12 MG Road, Bengaluru", "560001", "admin"),
-    ("priya_bhat", "Priya@2025", "Priya Bhat", "45 Marine Drive, Mumbai", "400002", "user"),
-    ("amit_singh", "Amit#Singh9", "Amit Singh", "78 Park Street, Kolkata", "700016", "user"),
-    ("sneha_mehra", "SnehaMehra7", "Sneha Mehra", "33 Connaught Place, Delhi", "110001", "user"),
-    ("anil_patel", "AnilPatel3", "Anil Patel", "56 Ellis Bridge, Ahmedabad", "380006", "user"),
-    ("neeraj_jain", "JainNeeraj5", "Neeraj Jain", "22 Sector 17, Chandigarh", "160017", "user"),
-    ("rekha_desai", "RekhaD#89", "Rekha Desai", "19 Law Garden, Surat", "395007", "user"),
-    ("vikram_rana", "VikramRana1", "Vikram Rana", "90 MG Road, Pune", "411001", "user"),
-    ("tanya_mehta", "TanyaM@123", "Tanya Mehta", "11 Sector 15, Noida", "201301", "user"),
-    ("harsh_kumar", "HarshKumar8", "Harsh Kumar", "77 Salt Lake City, Kolkata", "700064", "user"),
+Admin (user_name, password, full_name, address, pincode) = [
+    ("ramkumar", "RamKumar9", "Ram Kumar", "12 MG Road, Bengaluru", "560001")
 ]
 
-ParkingLot = [
-    ("MG Road Parking", "12 MG Road, Bengaluru", "560001", 150.00, 100, 45, 10250.00),
-    ("Marine Drive Parking", "45 Marine Drive, Mumbai", "400002", 200.00, 80, 60, 13500.00),
-    ("Park Street Parking", "78 Park Street, Kolkata", "700016", 120.00, 70, 35, 4700.00),
-    ("Connaught Place Parking", "33 Connaught Place, Delhi", "110001", 250.00, 120, 90, 25500.00),
-    ("Ellis Bridge Parking", "56 Ellis Bridge, Ahmedabad", "380006", 100.00, 50, 20, 2500.00),
-    ("Sector 17 Parking", "22 Sector 17, Chandigarh", "160017", 130.00, 60, 25, 3700.00),
-    ("Law Garden Parking", "19 Law Garden, Surat", "395007", 90.00, 40, 10, 1200.00),
-    ("MG Road Parking Pune", "90 MG Road, Pune", "411001", 110.00, 75, 50, 5800.00),
-    ("Sector 15 Parking", "11 Sector 15, Noida", "201301", 140.00, 65, 30, 4800.00),
-    ("Salt Lake City Parking", "77 Salt Lake City, Kolkata", "700064", 125.00, 85, 55, 7150.00),
+User (user_name, password, full_name, address, pincode, vehicle_num) = [
+    ("priya_bhat", "Priya@2025", "Priya Bhat", "45 Marine Drive, Mumbai", "400002", 
+        ("MH01AB1234", "MH01CD5678", "MH02EF9012", "MH03GH3456", "MH04IJ7890")),
+    ("amit_singh", "Amit#Singh9", "Amit Singh", "78 Park Street, Kolkata", "700016", 
+        ("WB01AA1111", "WB02BB2222", "WB03CC3333", "WB04DD4444", "WB05EE5555")),
+    ("sneha_mehra", "SnehaMehra7", "Sneha Mehra", "33 Connaught Place, Delhi", "110001", 
+        ("DL01AB1111", "DL02CD2222", "DL03EF3333", "DL04GH4444", "DL05IJ5555")),
+    ("anil_patel", "AnilPatel3", "Anil Patel", "56 Ellis Bridge, Ahmedabad", "380006", 
+        ("GJ01AA9999", "GJ02BB8888", "GJ03CC7777", "GJ04DD6666", "GJ05EE5555")),
+    ("neeraj_jain", "JainNeeraj5", "Neeraj Jain", "22 Sector 17, Chandigarh", "160017", 
+        ("CH01AA1234", "CH02BB5678", "CH03CC9101", "CH04DD2345", "CH05EE6789")),
+    ("rekha_desai", "RekhaD#89", "Rekha Desai", "19 Law Garden, Surat", "395007", 
+        ("GJ05AA3456", "GJ05BB7890", "GJ05CC1234", "GJ05DD5678", "GJ05EE9012")),
+    ("vikram_rana", "VikramRana1", "Vikram Rana", "90 MG Road, Pune", "411001", 
+        ("MH12AA1111", "MH12BB2222", "MH12CC3333", "MH12DD4444", "MH12EE5555")),
+    ("tanya_mehta", "TanyaM@123", "Tanya Mehta", "11 Sector 15, Noida", "201301", 
+        ("UP16AA1234", "UP16BB5678", "UP16CC9012", "UP16DD3456", "UP16EE7890")),
+    ("harsh_kumar", "HarshKumar8", "Harsh Kumar", "88 Gandhi Maidan Road, Patna", "800001", 
+        ("BR01AA1234", "BR01BB5678", "BR01CC9012", "BR01DD3456", "BR01EE7890")),
+    ("aditi_nair", "Aditi@786", "Aditi Nair", "21 Charminar Road, Hyderabad", "500002", 
+        ("TS09AA1111", "TS09BB2222", "TS09CC3333", "TS09DD4444", "TS09EE5555"))
 ]
 
-vehicle_num = [
-    ("KA01MG2345"),
-    ("MH01MD8899"),
-    ("WB01PS6789"),
-    ("DL01CP1234"),
-    ("GJ01EB5566"),
-    ("CH01S71717"),
-    ("GJ05LG9988"),
-    ("MH12MG4532"),
-    ("UP16S15123"),
-    ("WB02SL4567")
+ParkingLot (prime_location_name, address, pincode, price, max_spots) = [
+    ("Marine Drive Parking", "45 Marine Drive, Mumbai", "400002", 200.00, 80),
+    ("Park Street Parking", "78 Park Street, Kolkata", "700016", 120.00, 70),
+    ("Connaught Place Parking", "33 Connaught Place, Delhi", "110001", 250.00, 120),
+    ("Ellis Bridge Parking", "56 Ellis Bridge, Ahmedabad", "380006", 100.00, 50),
+    ("Plaza Market Parking", "22 Sector 17, Chandigarh", "160017", 130.00, 60),
+    ("Law Garden Parking", "19 Law Garden, Surat", "395007", 90.00, 40),
+    ("MG Road Parking", "90 MG Road, Pune", "411001", 110.00, 75),
+    ("Atta Market Parking", "11 Sector 15, Noida", "201301", 140.00, 65),
+    ("Gandhi Maidan Parking", "88 Gandhi Maidan Road, Patna", "800001", 100.00, 50),
+    ("Charminar Parking", "21 Charminar Road, Hyderabad", "500002", 160.00, 85)
+]
+
+----------------------------------------------------------------------------------------------------
+
+(user_name, prime_location_name, vehicle_num, duration)
+historical_reservations = [
+    # SLOT 1
+    ("priya_bhat", "Marine Drive Parking", "MH01AB1234", 1.5),
+    ("amit_singh", "Ellis Bridge Parking", "WB02BB2222", 1),
+    ("sneha_mehra", "Connaught Place Parking", "DL01AB1111", 1.5),
+    ("anil_patel", "Park Street Parking", "GJ02BB8888", 1),
+    ("neeraj_jain", "Plaza Market Parking", "CH01AA1234", 1.5),
+    ("priya_bhat", "Law Garden Parking", "MH02EF9012", 1),
+    ("amit_singh", "MG Road Parking", "WB01AA1111", 1.5),
+    ("sneha_mehra", "Atta Market Parking", "DL02CD2222", 1),
+
+    # SLOT 2
+    ("anil_patel", "Ellis Bridge Parking", "GJ01AA9999", 1.5),
+    ("neeraj_jain", "Marine Drive Parking", "CH04DD2345", 1.5),
+    ("priya_bhat", "Connaught Place Parking", "MH01CD5678", 1.5),
+    ("amit_singh", "Park Street Parking", "WB03CC3333", 1),
+    ("sneha_mehra", "Law Garden Parking", "DL04GH4444", 1),
+    ("anil_patel", "Plaza Market Parking", "GJ03CC7777", 1.5),
+    ("neeraj_jain", "Atta Market Parking", "CH03CC9101", 1),
+]
+
+(user_name, prime_location_name, vehicle_num)
+ongoing_reservations = [
+    ("anil_patel", "Marine Drive Parking", "GJ05EE5555"),
+    ("priya_bhat", "Park Street Parking", "MH04IJ7890"),
+    ("anil_patel", "Connaught Place Parking", "GJ04DD6666"),
+    ("priya_bhat", "Marine Drive Parking", "MH03GH3456")
 ]

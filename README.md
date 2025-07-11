@@ -1,4 +1,4 @@
-# Vehicle Parking App V1
+# ParkZone - Vehicle Parking App
 
 A multi-user web application to manage 4-wheeler parking lots and vehicle reservations with role-based access for administrators and users.
 
@@ -31,25 +31,6 @@ This application allows administrators to create and manage parking lots and use
 - Authentication & session management using `Flask-Login`.
 - **Search Functionality** to quickly find relevant records.
 - Responsive UI with **Bootstrap** and custom styling.
-
----
-
-## Tech Stack
-
-| Layer      | Tools/Libraries                                     |
-|------------|-----------------------------------------------------|
-| Frontend   | HTML, CSS, Bootstrap, JavaScript                    |
-| Backend    | Flask, Flask-RESTful, Flask-SQLAlchemy, Flask-Login |
-| Database   | SQLite                                              |
-| Templating | Jinja2                                              |
-
----
-
-## Security
-
-- Sessions protected using `Flask-Login`.
-- `SECRET_KEY` generated using `secrets.token_hex(32)`.
-- Access restrictions via decorators (`@admin_required`, `@user_required`).
 
 ---
 
